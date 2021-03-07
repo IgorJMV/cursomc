@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import lombok.AllArgsConstructor;
@@ -19,19 +21,24 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Categoria implements Serializable{
+public class Produto implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
-	private Integer id;
-	private String nome;
+	@Setter private Integer id;
+	@Setter private String nome;
+	@Setter private Double preco;
 	
-	@ManyToMany(mappedBy = "categorias")
-	private final List<Produto> produtos = new ArrayList<>();
+	@ManyToMany
+	@JoinTable(
+			name = "produto_categoria",
+			joinColumns = @JoinColumn(name = "produto_id"),
+			inverseJoinColumns = @JoinColumn(name = "categoria_id")
+	)
+	private final List<Categoria> categorias = new ArrayList<>();
 	
 }
