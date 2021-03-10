@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.igorjmv2000.gmail.cursomc.domain.Categoria;
 import com.igorjmv2000.gmail.cursomc.domain.Cliente;
 import com.igorjmv2000.gmail.cursomc.repositories.ClienteRepository;
 import com.igorjmv2000.gmail.cursomc.services.exceptions.ObjectNotFoundException;

@@ -37,6 +37,9 @@ public class Cliente implements Serializable{
 					private Integer tipo;
 	
 	@OneToMany(mappedBy = "cliente")
+	@Getter private final List<Pedido> pedidos = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "cliente")
 	@Getter private final List<Endereco> enderecos = new ArrayList<>();
 	
 	@ElementCollection
