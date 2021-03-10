@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.igorjmv2000.gmail.cursomc.domain.Categoria;
 import com.igorjmv2000.gmail.cursomc.repositories.CategoriaRepository;
+import com.igorjmv2000.gmail.cursomc.services.exceptions.DataIntegrityException;
 import com.igorjmv2000.gmail.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -34,6 +36,15 @@ public class CategoriaService {
 	public Categoria update(Categoria obj) {
 		findById(obj.getId());
 		return repository.save(obj);
+	}
+
+	public void deleteById(Integer id) {
+		findById(id);
+		try {
+			repository.deleteById(id);
+		}catch(DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir uma categoria que possua produtos");
+		}
 	}
 	
 }
