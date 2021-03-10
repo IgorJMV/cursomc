@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -30,6 +32,7 @@ public class Estado implements Serializable{
 	@Setter private Integer id;
 	@Setter private String nome;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "estado")
 	private final List<Cidade> cidades = new ArrayList<>();
 	
