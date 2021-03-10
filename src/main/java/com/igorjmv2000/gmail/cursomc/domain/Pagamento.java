@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.igorjmv2000.gmail.cursomc.domain.enums.EstadoPagamento;
 
 import lombok.EqualsAndHashCode;
@@ -29,6 +30,7 @@ public abstract class Pagamento implements Serializable{
 	@Getter @Setter private Integer id;
 	private Integer estado;
 	
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "pedido_id")
 	@MapsId
