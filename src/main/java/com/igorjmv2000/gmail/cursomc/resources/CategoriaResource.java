@@ -2,6 +2,7 @@ package com.igorjmv2000.gmail.cursomc.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.igorjmv2000.gmail.cursomc.domain.Categoria;
+import com.igorjmv2000.gmail.cursomc.dto.CategoriaDTO;
 import com.igorjmv2000.gmail.cursomc.services.CategoriaService;
 
 @RestController
@@ -23,8 +25,8 @@ public class CategoriaResource {
 	private CategoriaService service;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Categoria>> findAll() {
-		List<Categoria> list = service.findAll();
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
+		List<CategoriaDTO> list = service.findAll().stream().map(x -> new CategoriaDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(list);
 	}
 	
