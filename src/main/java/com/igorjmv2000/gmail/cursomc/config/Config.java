@@ -12,6 +12,7 @@ import com.igorjmv2000.gmail.cursomc.domain.Cidade;
 import com.igorjmv2000.gmail.cursomc.domain.Cliente;
 import com.igorjmv2000.gmail.cursomc.domain.Endereco;
 import com.igorjmv2000.gmail.cursomc.domain.Estado;
+import com.igorjmv2000.gmail.cursomc.domain.ItemPedido;
 import com.igorjmv2000.gmail.cursomc.domain.Pagamento;
 import com.igorjmv2000.gmail.cursomc.domain.PagamentoComBoleto;
 import com.igorjmv2000.gmail.cursomc.domain.PagamentoComCartao;
@@ -24,6 +25,7 @@ import com.igorjmv2000.gmail.cursomc.repositories.CidadeRepository;
 import com.igorjmv2000.gmail.cursomc.repositories.ClienteRepository;
 import com.igorjmv2000.gmail.cursomc.repositories.EnderecoRepository;
 import com.igorjmv2000.gmail.cursomc.repositories.EstadoRepository;
+import com.igorjmv2000.gmail.cursomc.repositories.ItemPedidoRepository;
 import com.igorjmv2000.gmail.cursomc.repositories.PagamentoRepository;
 import com.igorjmv2000.gmail.cursomc.repositories.PedidoRepository;
 import com.igorjmv2000.gmail.cursomc.repositories.ProdutoRepository;
@@ -54,6 +56,9 @@ public class Config implements CommandLineRunner{
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -113,6 +118,19 @@ public class Config implements CommandLineRunner{
 		
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 00.00, 1, p1.getPreco());
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 00.00, 2, p3.getPreco());
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, p2.getPreco());
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 	}
 
 }
