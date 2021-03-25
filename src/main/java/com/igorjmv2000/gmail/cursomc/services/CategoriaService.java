@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.igorjmv2000.gmail.cursomc.domain.Categoria;
+import com.igorjmv2000.gmail.cursomc.dto.CategoriaDTO;
 import com.igorjmv2000.gmail.cursomc.repositories.CategoriaRepository;
 import com.igorjmv2000.gmail.cursomc.services.exceptions.DataIntegrityException;
 import com.igorjmv2000.gmail.cursomc.services.exceptions.ObjectNotFoundException;
@@ -53,6 +54,10 @@ public class CategoriaService {
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repository.findAll(pageRequest);
+	}
+	
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 	
 }
