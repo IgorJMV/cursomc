@@ -1,18 +1,27 @@
 package com.igormarinho.cursomc.resources;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.igormarinho.cursomc.domain.Categoria;
 
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<String> buscar(){
-		String body = "As categorias serão listadas aqui...";
-		return ResponseEntity.ok().body(body);
+	public ResponseEntity<List<Categoria>> listar(){
+		Categoria cat1 = new Categoria(1, "Informática");
+		Categoria cat2 = new Categoria(2, "Escritório");
+		List<Categoria> list = new ArrayList<>(Arrays.asList(cat1, cat2));
+		
+		return ResponseEntity.ok().body(list);
 	}
 	
 }
