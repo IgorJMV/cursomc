@@ -21,6 +21,12 @@ public class CategoriaResource {
 	@Autowired
 	private CategoriaService service;
 	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<?> findAll(){
+		List<Categoria> list = service.findAll();
+		return ResponseEntity.ok().body(list);
+	}
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id){
 		Categoria obj = service.find(id);		
