@@ -8,10 +8,15 @@ import org.springframework.context.annotation.Configuration;
 
 import com.igormarinho.cursomc.domain.Categoria;
 import com.igormarinho.cursomc.domain.Cidade;
+import com.igormarinho.cursomc.domain.Cliente;
+import com.igormarinho.cursomc.domain.Endereco;
 import com.igormarinho.cursomc.domain.Estado;
 import com.igormarinho.cursomc.domain.Produto;
+import com.igormarinho.cursomc.domain.enums.TipoCliente;
 import com.igormarinho.cursomc.repositories.CategoriaRepository;
 import com.igormarinho.cursomc.repositories.CidadeRepository;
+import com.igormarinho.cursomc.repositories.ClienteRepository;
+import com.igormarinho.cursomc.repositories.EnderecoRepository;
 import com.igormarinho.cursomc.repositories.EstadoRepository;
 import com.igormarinho.cursomc.repositories.ProdutoRepository;
 
@@ -29,6 +34,12 @@ public class H2Config implements CommandLineRunner{
 	
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -61,6 +72,18 @@ public class H2Config implements CommandLineRunner{
 		Cidade c3 = new Cidade(null, "Campinas", est2);
 		
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
+		
+		//Clientes
+		Cliente cli1 = new Cliente(null, "Maria", "maria@gmail.com", "059.032.200-55", TipoCliente.PESSOA_FISICA);
+		cli1.getTelefones().addAll(Arrays.asList("(27) 92222-5555", "(27) 98777-0255"));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		
+		//Endereços
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "22455-850", cli1, c1);
+		Endereco e2 = new Endereco(null, "Av. Matos", "105", "Sala 800", "Centro", "38559-888", cli1, c2);
+		
+		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 	}
 
 }
