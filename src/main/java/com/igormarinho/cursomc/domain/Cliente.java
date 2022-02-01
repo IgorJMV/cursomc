@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.igormarinho.cursomc.domain.enums.TipoCliente;
 
 import lombok.EqualsAndHashCode;
@@ -52,6 +53,7 @@ public class Cliente implements Serializable{
 	@Getter
 	private Set<String> telefones = new HashSet<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	@Getter
 	private List<Pedido> pedidos = new ArrayList<>();
