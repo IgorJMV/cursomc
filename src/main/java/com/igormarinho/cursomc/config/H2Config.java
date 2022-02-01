@@ -1,5 +1,6 @@
 package com.igormarinho.cursomc.config;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +12,20 @@ import com.igormarinho.cursomc.domain.Cidade;
 import com.igormarinho.cursomc.domain.Cliente;
 import com.igormarinho.cursomc.domain.Endereco;
 import com.igormarinho.cursomc.domain.Estado;
+import com.igormarinho.cursomc.domain.Pagamento;
+import com.igormarinho.cursomc.domain.PagamentoComBoleto;
+import com.igormarinho.cursomc.domain.PagamentoComCartao;
+import com.igormarinho.cursomc.domain.Pedido;
 import com.igormarinho.cursomc.domain.Produto;
+import com.igormarinho.cursomc.domain.enums.EstadoPagamento;
 import com.igormarinho.cursomc.domain.enums.TipoCliente;
 import com.igormarinho.cursomc.repositories.CategoriaRepository;
 import com.igormarinho.cursomc.repositories.CidadeRepository;
 import com.igormarinho.cursomc.repositories.ClienteRepository;
 import com.igormarinho.cursomc.repositories.EnderecoRepository;
 import com.igormarinho.cursomc.repositories.EstadoRepository;
+import com.igormarinho.cursomc.repositories.PagamentoRepository;
+import com.igormarinho.cursomc.repositories.PedidoRepository;
 import com.igormarinho.cursomc.repositories.ProdutoRepository;
 
 @Configuration
@@ -40,6 +48,12 @@ public class H2Config implements CommandLineRunner{
 	
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -84,6 +98,20 @@ public class H2Config implements CommandLineRunner{
 		Endereco e2 = new Endereco(null, "Av. Matos", "105", "Sala 800", "Centro", "38559-888", cli1, c2);
 		
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		
+		//Pedidos
+		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		
+		Pedido ped1 = new Pedido(null, df.parse("01/02/2022 15:54"), cli1, e1);
+		Pedido ped2 = new Pedido(null, df.parse("10/02/2022 14:35"), cli1, e2);
+		
+		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+		
+		//Pagamento
+		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped2, 6);
+		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped1, df.parse("20/03/2022 00:00"), null);
+		
+		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 	}
 
 }
