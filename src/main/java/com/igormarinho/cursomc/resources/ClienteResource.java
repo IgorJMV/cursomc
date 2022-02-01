@@ -20,13 +20,13 @@ public class ClienteResource {
 	private ClienteService service;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> findAll(){
+	public ResponseEntity<List<Cliente>> findAll(){
 		List<Cliente> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id){
+	public ResponseEntity<Cliente> find(@PathVariable Integer id){
 		Cliente obj = service.find(id);		
 		return ResponseEntity.ok().body(obj);
 	}
