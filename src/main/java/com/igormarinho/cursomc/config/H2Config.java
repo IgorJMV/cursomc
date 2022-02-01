@@ -12,6 +12,7 @@ import com.igormarinho.cursomc.domain.Cidade;
 import com.igormarinho.cursomc.domain.Cliente;
 import com.igormarinho.cursomc.domain.Endereco;
 import com.igormarinho.cursomc.domain.Estado;
+import com.igormarinho.cursomc.domain.ItemPedido;
 import com.igormarinho.cursomc.domain.Pagamento;
 import com.igormarinho.cursomc.domain.PagamentoComBoleto;
 import com.igormarinho.cursomc.domain.PagamentoComCartao;
@@ -24,6 +25,7 @@ import com.igormarinho.cursomc.repositories.CidadeRepository;
 import com.igormarinho.cursomc.repositories.ClienteRepository;
 import com.igormarinho.cursomc.repositories.EnderecoRepository;
 import com.igormarinho.cursomc.repositories.EstadoRepository;
+import com.igormarinho.cursomc.repositories.ItemPedidoRepository;
 import com.igormarinho.cursomc.repositories.PagamentoRepository;
 import com.igormarinho.cursomc.repositories.PedidoRepository;
 import com.igormarinho.cursomc.repositories.ProdutoRepository;
@@ -54,6 +56,9 @@ public class H2Config implements CommandLineRunner{
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -107,11 +112,18 @@ public class H2Config implements CommandLineRunner{
 		
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		
-		//Pagamento
+		//Pagamentos
 		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped2, 6);
 		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped1, df.parse("20/03/2022 00:00"), null);
 		
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		//Item de Pedidos
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0d, 1, 2000d);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0d, 2, 80d);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100d, 1, 800d);
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 	}
 
 }
