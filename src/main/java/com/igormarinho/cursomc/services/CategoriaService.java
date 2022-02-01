@@ -2,12 +2,14 @@ package com.igormarinho.cursomc.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.igormarinho.cursomc.domain.Categoria;
+import com.igormarinho.cursomc.dto.CategoriaDTO;
 import com.igormarinho.cursomc.repositories.CategoriaRepository;
 import com.igormarinho.cursomc.services.exceptions.DataIntegrityException;
 import com.igormarinho.cursomc.services.exceptions.ObjectNotFoundException;
