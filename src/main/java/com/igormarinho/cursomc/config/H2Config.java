@@ -78,12 +78,28 @@ public class H2Config implements CommandLineRunner{
 		Produto p1 = new Produto(null, "Computador", 2000d);
 		Produto p2 = new Produto(null, "Impressora", 800d);
 		Produto p3 = new Produto(null, "Mouse", 80d);
+		Produto p4 = new Produto(null, "Mesa de escritório", 300d);
+		Produto p5 = new Produto(null, "Toalha", 50d);
+		Produto p6 = new Produto(null, "Colcha", 200d);
+		Produto p7 = new Produto(null, "TV True Color", 1200d);
+		Produto p8 = new Produto(null, "Roçadeira", 800d);
+		Produto p9 = new Produto(null, "Abajur", 100d);
+		Produto p10 = new Produto(null, "Pendente", 180d);
+		Produto p11 = new Produto(null, "Shampoo", 90d);
 		
 		p1.getCategorias().addAll(Arrays.asList(cat1));
 		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
 		p3.getCategorias().addAll(Arrays.asList(cat1));
+		p4.getCategorias().addAll(Arrays.asList(cat2));
+		p5.getCategorias().addAll(Arrays.asList(cat3));
+		p6.getCategorias().addAll(Arrays.asList(cat3));
+		p7.getCategorias().addAll(Arrays.asList(cat4));
+		p8.getCategorias().addAll(Arrays.asList(cat5));
+		p9.getCategorias().addAll(Arrays.asList(cat6));
+		p10.getCategorias().addAll(Arrays.asList(cat6));
+		p11.getCategorias().addAll(Arrays.asList(cat7));
 		
-		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
+		produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
 		
 		//Estados
 		Estado est1 = new Estado(null, "Minas Gerais");
